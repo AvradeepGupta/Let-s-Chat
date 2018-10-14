@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.avrad.letschat.MainActivity;
 import com.example.avrad.letschat.Model.User;
 import com.example.avrad.letschat.R;
 import com.google.android.gms.tasks.Continuation;
@@ -45,7 +46,7 @@ public class ProfileFragment extends Fragment {
 
     CircleImageView image_profile;
     TextView username;
-
+    Context mcontext;
     DatabaseReference reference;
     FirebaseUser fuser;
 
@@ -53,13 +54,14 @@ public class ProfileFragment extends Fragment {
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     private StorageTask uploadTask;
+    //private MainActivity mActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        mcontext = getActivity().getApplicationContext();
         image_profile = view.findViewById(R.id.profile_image);
         username = view.findViewById(R.id.username);
 
@@ -76,7 +78,7 @@ public class ProfileFragment extends Fragment {
                 if(user.getImageURL().equals("default")){
                     image_profile.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
+                    Glide.with(mcontext).load(user.getImageURL()).into(image_profile);
                 }
             }
 
